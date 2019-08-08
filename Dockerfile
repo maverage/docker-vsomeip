@@ -24,7 +24,7 @@ RUN set -eux; \
 # build
     cd /tmp/vsomeip-${VSOMEIP_VERSION}; \
     mkdir build && cd build; \
-    cmake .. \
+    cmake ..; \
     mkdir out && cd out; \
     make ..;
  
