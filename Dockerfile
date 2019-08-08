@@ -18,11 +18,11 @@ RUN set -eux; \
     curl -o vsomeip.tar.gz -fsSL "https://github.com/GENIVI/vsomeip/archive/${VSOMEIP_VERSION}.tar.gz"; \
     # echo "$VSOMEIP_SHA256 *vsomeip.tar.gz" | sha256sum -c -; \
 # upstream tarballs include ./vsomeip-${VSOMEIP_VERSION}/ so this gives us /usr/src/vsomeip-${VSOMEIP_VERSION}
-    tar -xf vsomeip.tar.gz -C /usr/src/; \
+    tar -xf vsomeip.tar.gz -C /tmp/; \
 # cleanup download
     rm vsomeip.tar.gz; \
 # build
-    cd /usr/src/vsomeip-${VSOMEIP_VERSION}; \
+    cd /tmp/vsomeip-${VSOMEIP_VERSION}; \
     mkdir build && cd build; \
     cmake .. \
     mkdir out && cd out; \
@@ -32,8 +32,8 @@ FROM alpine:latest as runtime
  
 LABEL description="runtime of vsomeipd"
 
-COPY --from=build /usr/src/vsomeip-${VSOMEIP_VERSION}/build/out/*.so /usr/local/lib
-COPY --from=build /usr/src/vsomeip-${VSOMEIP_VERSION}/build/out/vsomeipd /usr/local/bin
+COPY --from=build /tmp/vsomeip-${VSOMEIP_VERSION}/build/out/*.so /usr/local/lib
+COPY --from=build /tmp/vsomeip-${VSOMEIP_VERSION}/build/out/vsomeipd /usr/local/bin
  
 WORKDIR /usr/local/bin
 
