@@ -6,7 +6,7 @@ MAINTAINER https://github.com/maverage/docker-vsomeip
 LABEL description="Build vsomeip"
  
 RUN apk update && apk add --no-cache \ 
-    build-base binutils cmake curl gcc g++ git libboost-all-dev libgcc libtool linux-headers make tar
+    build-base binutils cmake curl gcc g++ git boost-dev libgcc libtool linux-headers make tar
     
 # the following content is inspired by https://github.com/YOURLS/docker-yourls/blob/master/fpm-alpine/Dockerfile
 
