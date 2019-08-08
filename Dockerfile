@@ -25,15 +25,14 @@ RUN set -eux; \
     cd /tmp/vsomeip-${VSOMEIP_VERSION}; \
     mkdir build && cd build; \
     cmake ..; \
-    mkdir out && cd out; \
-    make ..;
+    make;
  
 FROM alpine:latest as runtime
  
 LABEL description="runtime of vsomeipd"
 
-COPY --from=build /tmp/vsomeip-${VSOMEIP_VERSION}/build/out/*.so /usr/local/lib
-COPY --from=build /tmp/vsomeip-${VSOMEIP_VERSION}/build/out/vsomeipd /usr/local/bin
+COPY --from=build /tmp/vsomeip-${VSOMEIP_VERSION}/build/*.so /usr/local/lib
+COPY --from=build /tmp/vsomeip-${VSOMEIP_VERSION}/build/vsomeipd /usr/local/bin
  
 WORKDIR /usr/local/bin
 
