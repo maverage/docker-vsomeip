@@ -1,4 +1,4 @@
-FROM alpine:latest as build
+FROM alpine:3.7 as build
 # inspired by https://devblogs.microsoft.com/cppblog/using-multi-stage-containers-for-c-development/
 
 MAINTAINER https://github.com/maverage/docker-vsomeip
@@ -6,7 +6,7 @@ MAINTAINER https://github.com/maverage/docker-vsomeip
 LABEL description="Build vsomeip"
  
 RUN apk update && apk add --no-cache \ 
-    build-base binutils cmake curl gcc g++ git boost-dev=1.55.0 libgcc libtool linux-headers make tar
+    build-base binutils cmake curl gcc g++ git boost-dev libgcc libtool linux-headers make tar
     
 # the following content is inspired by https://github.com/YOURLS/docker-yourls/blob/master/fpm-alpine/Dockerfile
 
@@ -27,7 +27,7 @@ RUN set -eux; \
     cmake ..; \
     make;
  
-FROM alpine:latest as runtime
+FROM alpine:3.7 as runtime
  
 LABEL description="runtime of vsomeipd"
 
